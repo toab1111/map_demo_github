@@ -50,11 +50,9 @@ export class SearchComponent implements AfterViewInit {
 
 onAdd(event: Event) {
     this.selected_total.push(event)
-    console.log(this.selected_total)
 }
 
 onAdd_Province(event: Event) {
-
     this.Query_ProvinceByID='';
     for (let index = 0; index < this.selected_Province.length; index++) {
 
