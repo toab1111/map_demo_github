@@ -21,7 +21,6 @@ export class ApiService {
   coor_geo:any = [];
   geo_polygon:any = [];
 
-  AllSearch = this.AllSearch_url+ "PostSearchPlant_V3?province=" + "ALL" + "&plantid=" + "ALL" + "&classid=" + "ALL" + "&salestatus=ALL&stdatefrom=ALL&stdateto=ALL&endatefrom=" + "ALL" + "&endateto=" + "ALL" +"&percentfrom=0&percentto=100&ampor=" + "ALL" +"&growthtype=ALL&guildid=ALL&apikey=1212312121"
   ALLpolygon:string = 'http://203.170.129.207/kasettrackservices_v2/getALLPolygon/1212312121'
   
   
@@ -137,8 +136,6 @@ export class ApiService {
 
 
  initMap(data = ['ALL']): void {
-   console.log(this.AllSearch);
-   
     const options = {
       key: '1C8LUnYyLkMKeBom0tyHWncRd39QOo4L', // REPLACE WITH YOUR KEY !!!
       lat: 13.736717,
@@ -149,7 +146,7 @@ export class ApiService {
     windyInit(options, (windyAPI: any) => {
         const { map } = windyAPI;
         map.options.minZoom = 4;
-        map.options.maxZoom = 26;
+        map.options.maxZoom = 30;
         if (data =['ALL']){
           this.getPolygon(map)
 
@@ -158,7 +155,7 @@ export class ApiService {
 
 
         const googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
-          maxZoom: 26,
+          maxZoom: 30,
           subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
       googleHybrid.setOpacity(0);
