@@ -158,7 +158,7 @@ export class ApiService {
           maxZoom: 30,
           subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
-      googleHybrid.setOpacity(0);
+      googleHybrid.setOpacity(10);
 
       map.on('zoomend', function() {
         if (map.getZoom() >= 12) {
