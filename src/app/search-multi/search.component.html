@@ -1,10 +1,10 @@
 <div class="container mt-2">
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex ">
         <div class="col-md-10">
             <div class="card p-2 py-1">
                 <div class="row g-2 mt-1">
                     <div class="col-md-9">
-                        <ng-select [items]="AllProvince" (remove)="onRemove_Province($event)" (add)="onAdd_Province($event)" bindLabel="CHANGWAT_T" placeholder="เลือกจังหวัด" appendTo="body" [multiple]="true" [(ngModel)]="selected_Province">
+                        <ng-select [items]="AllProvince" (clear)="onClear($event)" (remove)="onRemove_Province($event)" (add)="onAdd_Province($event)" bindLabel="CHANGWAT_T" placeholder="เลือกจังหวัด" appendTo="body" [multiple]="true" [(ngModel)]="selected_Province">
                         </ng-select>
                     </div>
                     <div class="col-md-3"> <button (click)="show()" class="btn btn-secondary btn-block">ค้นหา</button> </div>
@@ -14,7 +14,7 @@
                         <div class="card card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <ng-select [items]="Amphore" (remove)="onRemove($event)" (add)="onAdd($event)" bindLabel="AMPHOE_T" placeholder="เลือกอำเภอ" appendTo="body" [multiple]="true" [(ngModel)]="selected_AMPHOE">
+                                    <ng-select [items]="Amphore" (remove)="onRemove_Amphore($event)" (add)="onAdd_Amphore($event)" bindLabel="AMPHOE_T" placeholder="เลือกอำเภอ" appendTo="body" [multiple]="true" [(ngModel)]="selected_AMPHOE">
                                     </ng-select>
                                 </div>
                                 <div class="col-md-6">
@@ -24,15 +24,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <ng-select [items]="AllPlant" (remove)="onRemove($event)" (add)="onAdd($event)" bindLabel="Plantname" placeholder="เลือกพืชผัก" appendTo="body" [multiple]="true" [(ngModel)]="selected_plant">
+                                    <ng-select [items]="AllPlant" (remove)="onRemove_Plant($event)" (add)="onAdd_Plant($event)" bindLabel="Plantname" placeholder="เลือกพืชผัก" appendTo="body" [multiple]="true" [(ngModel)]="selected_plant">
                                     </ng-select>
                                 </div>
                                 <div class="col-md-4">
-                                    <ng-select [items]="AllClass" (remove)="onRemove($event)" (add)="onAdd($event)" bindLabel="ClassName" placeholder="เลือกมาตราฐาน" appendTo="body" [multiple]="true" [(ngModel)]="selected_Class">
+                                    <ng-select [items]="AllClass" (remove)="onRemove_Class($event)" (add)="onAdd_Class($event)" bindLabel="ClassName" placeholder="เลือกมาตราฐาน" appendTo="body" [multiple]="true" [(ngModel)]="selected_Class">
                                     </ng-select>
                                 </div>
                                 <div class="col-md-4">
-                                    <ng-select [items]="AllGuildcategory" (remove)="onRemove($event)" (add)="onAdd($event)" bindLabel="guildcategoryname" placeholder="เลือกหมวดหมู่" appendTo="body" [multiple]="true" [(ngModel)]="selected_category">
+                                    <ng-select [items]="AllGuildcategory" (remove)="onRemove_category($event)" (add)="onAdd_category($event)" bindLabel="guildcategoryname" placeholder="เลือกหมวดหมู่" appendTo="body" [multiple]="true" [(ngModel)]="selected_category">
                                     </ng-select>
                                 </div>
                             </div>

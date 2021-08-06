@@ -8,13 +8,15 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchComponent } from './search-multi/search.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import {ApiService} from '../app/services/api.service'
+import {ApiService} from '../app/services/api.service';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
+
     
   ],
   imports: [
