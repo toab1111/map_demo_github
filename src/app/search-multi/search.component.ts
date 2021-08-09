@@ -62,14 +62,17 @@ onAdd_Province(event: Event) {
     for (let index = 0; index < this.selected_Province.length; index++) {
 
     const element = this.selected_Province[index]['ch_ID'];
-    console.log(element);
+
     if(index==(this.selected_Province.length-1)){
     this.Query_ProvinceByID+=element
+
     }
-    else{this.Query_ProvinceByID+=element+","}
+    else{this.Query_ProvinceByID+=element+","
+    
+  }
 
 }
-console.log(this.Query_ProvinceByID)
+
 this.ApiService.getAmporbyID(this.Query_ProvinceByID).subscribe((data: any) => {
   this.Amphore = data
 }); 
@@ -165,6 +168,8 @@ onRemove_Province(event: any) {
   else{  for (let index = 0; index < this.selected_Province.length; index++) {
 
     const element = this.selected_Province[index]['ch_ID'];
+    console.log(this.selected_Province[index]['CHANGWAT_T']);
+    
     console.log(element);
     if(index==(this.selected_Province.length-1)){
     this.Query_ProvinceByID+=element

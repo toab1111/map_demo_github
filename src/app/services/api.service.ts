@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { ActivatedRoute, Router } from '@angular/router';
 declare const windyInit: any;
 import * as L from 'leaflet';
 
@@ -15,16 +15,37 @@ export class ApiService {
   AllPlant_api:string = 'http://www.xn--12cfsxwzpdhs1afud2b6iscg8h.com/kasettrackservices_v2/getallPlant/1212312121';
   AllGuildcategory_api:string = 'http://www.xn--12cfsxwzpdhs1afud2b6iscg8h.com/kasettrackservices_v2/GetALLGuildcategory/1212312121';
   AmporByProvince:string ='http://203.170.129.207/kasettrackservices_v2/GetAmporByProvinceV2/'
-  AllSearch_url:string = 'http://203.170.129.207/kasettrackservices_v2/PostSearchPlant_V3?' 
+  AllSearch_url:string = 'http://203.170.129.207/kasettrackservices_v2/PostSearchPlant_V4?' 
   ///ค่าจากAPI////
   Polygons :any;
   coor_geo:any = [];
   geo_polygon:any = [];
+  search={
+  province_id:'ALL',
+  plantid:'ALL',
+  ampor_id:'ALL',
+  classid:'ALL',
+  guildid:'ALL',
+  salestatus:'ALL',
+  stdatefrom:'ALL',
+  stdateto:'ALL',
+  tambon_id:'ALL',
+  endatefrom:'ALL',
+  endateto:'ALL',
+  percentfrom:'ALL',
+  percentto:'ALL',
+  growthtype:'ALL'
+}
+
+
 
   ALLpolygon:string = 'http://203.170.129.207/kasettrackservices_v2/getALLPolygon/1212312121'
   
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private Router:Router) { }
+
+ 
+
   getAllProvince(){
      return this.http.get(this.AllProvince_api)
   };
@@ -43,47 +64,72 @@ export class ApiService {
   }
   searc_api(data:any){
     data=data[0]
-    console.log(data);
+    // console.log(data);
     
+    // let AllSearch_url_search = this.search
+    // // console.log(AllSearch_url_search);
+    // if (data.Province) {
+    //   AllSearch_url_search.province_id = data.Province
+    // }
+
+    // if (data.Plant) {
+    //   AllSearch_url_search.plantid =  data.Plant
+    // }
+
+    // if (data.amphore) {
+    //   AllSearch_url_search.ampor_id = data.amphore
+    // }
+
+    // if (data.Class) {
+    //   AllSearch_url_search.classid = data.Class
+    // }
+
+    // if (data.Category) {
+    //   AllSearch_url_search.guildid = data.Category
+    // }
+
+
+      
     let AllSearch_url_search = this.AllSearch_url
-    console.log(AllSearch_url_search);
+    // console.log(AllSearch_url_search);
     if (data.Province) {
-      AllSearch_url_search += 'province=' +data.Province
+      AllSearch_url_search += 'province_id='+data.Province
     }else{
-      AllSearch_url_search += 'province=' +'ALL'
+      AllSearch_url_search += "province_id=ALL"
     }
 
     if (data.Plant) {
-      AllSearch_url_search += '&plantid=' +data.Plant
+      AllSearch_url_search +=  '&plantid='+data.Plant
     }else{
-      AllSearch_url_search += '&plantid=' +'ALL'
+      AllSearch_url_search += '&plantid='+"ALL"
     }
 
     if (data.amphore) {
-      AllSearch_url_search += '&ampor=' +data.amphore
+      AllSearch_url_search += '&ampor_id='+ data.amphore
     }else{
-      AllSearch_url_search += '&ampor=' +'ALL'
+      AllSearch_url_search += '&ampor_id='+ "ALL"
     }
-
-    
 
     if (data.Class) {
-      AllSearch_url_search += '&classid=' +data.Class
+      AllSearch_url_search +='&classid='+data.Class
     }else{
-      AllSearch_url_search += '&classid=' +'ALL'
+      AllSearch_url_search += '&classid='+"ALL"
     }
-
-    
 
     if (data.Category) {
-      AllSearch_url_search += '&guildid=' +data.Category
+      AllSearch_url_search += '&guildid='+data.Category
     }else{
-      AllSearch_url_search += '&guildid=' +'ALL'
+      AllSearch_url_search += '&guildid='+"ALL"
     }
 
-    AllSearch_url_search+="&salestatus=ALL&stdatefrom=ALL&stdateto=ALL&endatefrom=ALL&endateto=ALL&percentfrom=0&percentto=100&growthtype=ALL&apikey=1212312121"
+    AllSearch_url_search+='&salestatus=ALL&stdatefrom=ALL&stdateto=ALL&endatefrom=ALL&endateto=ALL&percentfrom=ALL&percentto=ALL&tambon_id=ALL&growthtype=ALL&apikey=1212312121'
 
-    console.log(AllSearch_url_search);
+   
+   console.log(data.Province);
+
+    this.http.post(AllSearch_url_search,{}).toPromise().then((data: any)=>{
+      console.log(data);
+  })
     
   }
 
@@ -117,22 +163,40 @@ export class ApiService {
             }
 
             this.geo_polygon.push(geojson)
-
+            
         }
 
     }
-        
+
     );
+    //  console.log(this.geo_polygon);
     const polygonLayer = L.geoJSON(this.geo_polygon, {
       onEachFeature: function(f, l) {
-          l.bindPopup('<pre>' + JSON.stringify(f.properties, null, ' ').replace(/[\{\}"]/g, '') + '</pre>');
+          // console.log(f.properties);
+          let dome_div = document.createElement('div'); 
+         let dom_a = document.createElement('a');
+         dom_a.href = "#/data/"+f.properties.fname;
+         dom_a.innerHTML = f.properties.fname+" "+f.properties.lname;
+          dome_div.appendChild(dom_a);
+          let dom_btn = document.createElement('a');
+          dom_btn.href = "#/edit_poly/"+f.properties.fname;
+          dom_btn.className = 'btn btn-danger'
+          dom_btn.innerHTML = "แก้ไข";
+          dome_div.appendChild(dom_btn);
+
+          l.bindPopup(dome_div);
       }
     }).addTo(map);
+
+    
 
     });
   ;
   }
-
+  gotoDynamic(data:any) {
+    //this.router.navigateByUrl('/dynamic', { state: { id:1 , name:'Angular' } });
+    this.Router.navigateByUrl('/dynamic', { state: data });
+  }
 
 
  initMap(data = ['ALL']): void {
@@ -142,6 +206,8 @@ export class ApiService {
       lon: 100.523186,
       zoom: 5,
     };
+
+
   
     windyInit(options, (windyAPI: any) => {
         const { map } = windyAPI;
@@ -154,24 +220,43 @@ export class ApiService {
         // this.MakePolygonService.getTambol(map)
 
 
-        const googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+      const googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
           maxZoom: 30,
           subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        }).addTo(map);
-      googleHybrid.setOpacity(10);
+      })
+      // googleHybrid.setOpacity(10);
 
-      map.on('zoomend', function() {
-        if (map.getZoom() >= 12) {
-          googleHybrid.setOpacity(1);
-        } else {
-          googleHybrid.setOpacity(0);
-        }
-    });
+      const googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&hl=th&x={x}&y={y}&z={z}', {
+        maxZoom: 30,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      }).addTo(map);;
+    
+      const googleTerrain = L.tileLayer('http://mt0.google.com/vt/lyrs=p&hl=th&x={x}&y={y}&z={z}', {
+        maxZoom: 30,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      });
+
+    
+
+      const baseMaps = {
+      'GoogleStreets': googleStreets,
+      'Google Terrain': googleTerrain,
+      'Google Hybrid': googleHybrid,
+      }
+
+      L.control.layers(baseMaps).addTo(map);
+
+
+    //   map.on('zoomend', function() {
+    //     if (map.getZoom() >= 12) {
+    //       googleHybrid.setOpacity(1);
+    //     } else {
+    //       googleHybrid.setOpacity(0);
+    //     }
+    // });
 
     });
   };
-
-  
 
 }
     

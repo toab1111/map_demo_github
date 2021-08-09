@@ -1,0 +1,22 @@
+#windy {
+    width: 100%;
+    height: calc(100vh - 1px);
+}
+
+.container_map {
+    position: relative;
+    width: auto;
+}
+
+.overlay-search {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 610px;
+}
+
+.overlay-btn-draw {
+    position: absolute;
+    top: 10px;
+    right: 85px;
+}

@@ -9,6 +9,11 @@ import { SearchComponent } from './search-multi/search.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import {ApiService} from '../app/services/api.service';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { LayoutMapComponent } from './layouts/layout-map/layout-map.component';
+import { AddPolygonComponent } from './polygon_workspace/add-polygon/add-polygon.component';
+import { EditPolygonComponent } from './polygon_workspace/edit-polygon/edit-polygon.component';
+import { LayoutAddPolyComponent } from './layouts/layout-add-poly/layout-add-poly.component';
 
 
 
@@ -16,6 +21,11 @@ import {ApiService} from '../app/services/api.service';
   declarations: [
     AppComponent,
     SearchComponent,
+    SidebarComponent,
+    LayoutMapComponent,
+    AddPolygonComponent,
+    EditPolygonComponent,
+    LayoutAddPolyComponent,
 
     
   ],
